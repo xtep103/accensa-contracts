@@ -9,6 +9,7 @@ breaking changes bump the **minor** version, and they are called out as such.
 ## [Unreleased]
 
 ### Added
+- **`oracle`: Chainlink data-feed consumer trait.** New `accensa-oracle` contract (`contracts/oracle/src/chainlink.rs`) implements an AggregatorV3-style consumer: admin-pushed `RoundData` with round-completeness checks (`answered_in_round`, `updated_at`, positive answer), staleness rejection, monotonic round ids, and the standard `get_price` + `get_last_update_ledger` oracle interface for `RefundVault` fee scaling.
 - **`cross-chain` (issue #455): LayerZero omnichain dispute bridging.** New
   `layerzero` module lets decentralized arbitrators on remote chains deliver
   dispute resolutions to Soroban through a LayerZero endpoint. The admin
