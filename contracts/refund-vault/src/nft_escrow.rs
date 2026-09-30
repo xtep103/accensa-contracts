@@ -22,7 +22,9 @@
 use accensa_common::Error;
 use soroban_sdk::{contractevent, contracttype, symbol_short, Address, Env, IntoVal, Val, Vec};
 
-use crate::{acquire_reentrancy_lock, release_reentrancy_lock, DataKey};
+use accensa_common::reentrancy::ReentrancyGuard;
+
+use crate::DataKey;
 
 /// The on-chain identity of an escrowed NFT.
 #[contracttype]
@@ -152,7 +154,7 @@ pub(crate) fn deposit(
     contract: &Address,
     token_id: u128,
 ) -> Result<(), Error> {
-    acquire_reentrancy_lock(env)?;
+    ReentrancyGuard::acquire(env)?;
     if is_paused(env) {
         return Err(Error::Paused);
     }
@@ -198,7 +200,7 @@ pub(crate) fn deposit(
     }
     .publish(env);
 
-    release_reentrancy_lock(env);
+    ReentrancyGuard::release(env);
     Ok(())
 }
 
@@ -208,7 +210,7 @@ pub(crate) fn claim(
     contract: &Address,
     token_id: u128,
 ) -> Result<u128, Error> {
-    acquire_reentrancy_lock(env)?;
+    ReentrancyGuard::acquire(env)?;
     if is_paused(env) {
         return Err(Error::Paused);
     }
@@ -228,7 +230,7 @@ pub(crate) fn claim(
     }
     .publish(env);
 
-    release_reentrancy_lock(env);
+    ReentrancyGuard::release(env);
     Ok(token_id)
 }
 
@@ -238,7 +240,7 @@ pub(crate) fn refund(
     contract: &Address,
     token_id: u128,
 ) -> Result<u128, Error> {
-    acquire_reentrancy_lock(env)?;
+    ReentrancyGuard::acquire(env)?;
     if is_paused(env) {
         return Err(Error::Paused);
     }
@@ -258,7 +260,7 @@ pub(crate) fn refund(
     }
     .publish(env);
 
-    release_reentrancy_lock(env);
+    ReentrancyGuard::release(env);
     Ok(token_id)
 }
 

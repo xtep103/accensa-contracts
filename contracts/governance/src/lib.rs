@@ -128,6 +128,14 @@ pub enum Error {
     /// Simulation is required but no simulator contract is registered
     /// (issue #483).
     SimulationNotConfigured = 21,
+    /// No optimistic proposal exists with the given id.
+    OptimisticNotFound = 22,
+    /// The optimistic proposal was vetoed and cannot execute.
+    OptimisticVetoed = 23,
+    /// The optimistic challenge window has closed.
+    ChallengeWindowClosed = 24,
+    /// This member already vetoed this optimistic proposal.
+    AlreadyVetoed = 25,
 }
 
 #[contracttype]
@@ -168,6 +176,12 @@ pub enum DataKey {
     /// Persistent: the verified simulation report stored with a proposal
     /// created through `propose_with_simulation` (issue #483).
     SimAttestation(u64),
+    /// Instance: number of optimistic proposals ever created; also the next id.
+    OptimisticCount,
+    /// Persistent: an optimistic proposal's payload and veto tally.
+    OptimisticProposal(u64),
+    /// Temporary: marks that `.1` vetoed optimistic proposal `.0`.
+    OptimisticVeto(u64, Address),
 }
 
 /// A proposed call plus its running weighted tally.
