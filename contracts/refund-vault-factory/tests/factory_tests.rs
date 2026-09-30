@@ -37,6 +37,12 @@ struct Ctx {
 fn setup() -> Ctx {
     let env = Env::default();
     env.mock_all_auths();
+    // The vault wasm (~139KB) costs ~108M CPU instructions to upload and
+    // instantiate for verification, which exceeds the default 100M test
+    // budget on its own. Raise the (test-only, modeled — not real RAM)
+    // budget so deploy-based integration tests can run; on-chain budgets
+    // are enforced by the network regardless. See also `.wasm-budget.json`.
+    env.cost_estimate().budget().reset_limits(500_000_000, 500_000_000);
 
     let admin = Address::generate(&env);
     let merchant = Address::generate(&env);

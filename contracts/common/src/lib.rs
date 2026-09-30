@@ -189,6 +189,11 @@ pub enum Error {
     DisputeNotFound = 327,
     /// A fallback-oracle dispute was already settled (issue #469).
     DisputeClosed = 328,
+    /// A proposed merchant fee-tier ladder is malformed (empty, too long,
+    /// not starting at zero, non-increasing, or with out-of-range fees).
+    InvalidTierLadder = 329,
+    /// No randomness committed yet for the VDF round.
+    RandomnessNotFound = 330,
     /// Explicit Soroban Host error mapping (issue #380).
     HostError = 500,
 }
