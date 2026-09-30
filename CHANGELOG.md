@@ -9,6 +9,10 @@ breaking changes bump the **minor** version, and they are called out as such.
 ## [Unreleased]
 
 ### Added
+- **`governance` (issue #441): anonymous voting with linkable ring signatures.**
+  Members can register Ristretto255 voting keys and cast weighted votes through
+  LSAG proofs over equal-weight member anonymity sets. Proposal-scoped key images
+  prevent repeat anonymous votes without storing or emitting the signer identity.
 - **`cross-chain` (issue #455): LayerZero omnichain dispute bridging.** New
   `layerzero` module lets decentralized arbitrators on remote chains deliver
   dispute resolutions to Soroban through a LayerZero endpoint. The admin
