@@ -5,6 +5,7 @@
 # Python cache and compiled files
 __pycache__/
 *.py[cod]
+temp_auto_push.bat
 *$py.class
 
 # Local scratch and data files
@@ -12,3 +13,5 @@ issues.json
 *.scratch
 *.tmp
 *.temp
+.gitignore
+branch_structure.json
